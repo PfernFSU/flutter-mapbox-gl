@@ -295,6 +295,12 @@ class MapboxMapController extends ChangeNotifier {
     return MapboxGlPlatform.getInstance(_id).moveCamera(cameraUpdate);
   }
 
+  /// Adds the geojson source to the map
+  /// source is a geoJson file
+  Future<void> addSource(String sourceId, String geojson) async {
+    await MapboxGlPlatform.getInstance(_id).addSource(sourceId, geojson);
+  }
+
   /// Updates user location tracking mode.
   ///
   /// The returned [Future] completes after the change has been made on the

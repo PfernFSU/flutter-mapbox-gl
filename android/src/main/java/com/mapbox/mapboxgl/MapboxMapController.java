@@ -375,6 +375,13 @@ final class MapboxMapController
     methodChannel.invokeMethod("map#onUserLocationUpdated", arguments);
   }
 
+  private void addSource(String sourceName, String geojson) {
+    FeatureCollection featureCollection = FeatureCollection.fromJson(geojson);
+    GeoJsonSource geoJsonSource = new GeoJsonSource(sourceName, featureCollection);
+
+    style.addSource(geoJsonSource);
+  }
+
   private void enableSymbolManager(@NonNull Style style) {
     if (symbolManager == null) {
       symbolManager = new SymbolManager(mapView, mapboxMap, style);
@@ -905,6 +912,12 @@ final class MapboxMapController
         Convert.interpretFillOptions(call.argument("options"), fill);
         fill.update(fillManager);
         result.success(null);
+        break;
+      }
+      case "source#add": {
+        final String sourceId = call.argument("sourceId");
+        final String geojson = call.argument("geojson");
+        addSource(sourceId, geojson);
         break;
       }
       case "locationComponent#getLastLocation": {

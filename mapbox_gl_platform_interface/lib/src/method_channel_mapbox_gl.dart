@@ -148,6 +148,14 @@ class MethodChannelMapboxGl extends MapboxGlPlatform {
   }
 
   @override
+  Future<void> addSource(String sourceId, String geojson) async {
+    await _channel.invokeMethod('source#add', <String, dynamic>{
+      'sourceId': sourceId,
+      'geojson': geojson,
+    });
+  }
+
+  @override
   Future<CameraPosition?> updateMapOptions(
       Map<String, dynamic> optionsUpdate) async {
     final dynamic json = await _channel.invokeMethod(

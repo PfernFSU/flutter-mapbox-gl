@@ -70,6 +70,10 @@ abstract class MapboxGlPlatform {
     throw UnimplementedError('buildView() has not been implemented.');
   }
 
+  Future<void> addSource(String sourceId, String geojson) async {
+    throw UnimplementedError('addSource() has not been implemented.');
+  }
+
   Future<CameraPosition?> updateMapOptions(
       Map<String, dynamic> optionsUpdate) async {
     throw UnimplementedError('updateMapOptions() has not been implemented.');

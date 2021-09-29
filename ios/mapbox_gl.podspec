@@ -19,5 +19,9 @@ A new Flutter plugin.
   s.dependency 'Mapbox-iOS-SDK', '~> 6.3.0'
   s.swift_version = '4.2'
   s.ios.deployment_target = '9.0'
+
+  # MapboxAnnotationExtension fails to build for arm64 simulator
+  s.pod_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64' }
+  s.user_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64' }
 end
 

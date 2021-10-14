@@ -301,6 +301,21 @@ class MapboxMapController extends ChangeNotifier {
     await MapboxGlPlatform.getInstance(_id).addSource(sourceId, geojson);
   }
 
+  /// Fits the map to the specified bounds
+  Future<void> fitBounds(
+      double neLat,
+      double neLng,
+      double swLat,
+      double swLng,
+      double insetTop,
+      double insetLeft,
+      double insetBottom,
+      double insetRight,
+      bool animated) async {
+    await MapboxGlPlatform.getInstance(_id).fitBounds(neLat, neLng, swLat,
+        swLng, insetTop, insetLeft, insetBottom, insetRight, animated);
+  }
+
   /// Updates user location tracking mode.
   ///
   /// The returned [Future] completes after the change has been made on the

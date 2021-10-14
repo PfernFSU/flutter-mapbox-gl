@@ -524,6 +524,25 @@ class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, Ma
             addSource(sourceId: sourceId, geojson: geojson)
 
             result(nil)
+
+        case "map#fitBounds":
+            guard let arguments = methodCall.arguments as? [String: Any] else { return }
+            guard let neLat = arguments["neLat"] as? Double else { return }
+            guard let neLng = arguments["neLng"] as? Double else { return }
+            guard let swLat = arguments["swLat"] as? Double else { return }
+            guard let swLng = arguments["swLng"] as? Double else { return }
+
+            guard let insetLeft = arguments["insetLeft"] as? Float else { return }
+            guard let insetRight = arguments["insetRight"] as? Float else { return }
+            guard let insetTop = arguments["insetTop"] as? Float else { return }
+            guard let insetBottom = arguments["insetBottom"] as? Float else { return }
+            guard let animated = arguments["animated"] as? Bool else { return }
+            
+            fitBounds(neLat: neLat, neLng: neLng, swLat: swLat, swLng: swLng, 
+                insetTop: insetTop, insetLeft: insetLeft, insetBottom: insetBottom, insetRight: insetRight, 
+                animated: animated)
+            result(nil)
+
         case "fill#add":
             guard let fillAnnotationController = fillAnnotationController else { return }
             guard let arguments = methodCall.arguments as? [String: Any] else { return }
@@ -853,6 +872,23 @@ class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, Ma
                 mapView.style?.addSource(source)
             }
         } catch {
+        }
+    }
+
+    /*
+     * Fits map to defined bounds
+     */
+    func fitBounds(neLat: Double, neLng: Double, swLat: Double, swLng: Double, insetTop: Float, insetLeft: Float, insetBottom: Float, insetRight: Float, animated: Bool) {
+        do {
+        let sw = CLLocationCoordinate2DMake(swLat, swLng)
+        let ne = CLLocationCoordinate2DMake(neLat, neLng)
+        
+        let bounds = MGLCoordinateBounds(sw: sw, ne: ne)
+        
+        let insets = UIEdgeInsets(top: CGFloat(insetTop), left: CGFloat(insetLeft), bottom: CGFloat(insetBottom), right: CGFloat(insetRight))
+        mapView.setVisibleCoordinateBounds(bounds, edgePadding: insets, animated: animated)
+        } catch {
+            NSLog("Justin - there was an error....")
         }
     }
 

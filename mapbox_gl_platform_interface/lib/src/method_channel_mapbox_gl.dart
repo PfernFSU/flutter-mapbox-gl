@@ -156,6 +156,30 @@ class MethodChannelMapboxGl extends MapboxGlPlatform {
   }
 
   @override
+  Future<void> fitBounds(
+      double neLat,
+      double neLng,
+      double swLat,
+      double swLng,
+      double insetTop,
+      double insetLeft,
+      double insetBottom,
+      double insetRight,
+      bool animated) async {
+    await _channel.invokeMethod('map#fitBounds', <String, dynamic>{
+      'neLat': neLat,
+      'neLng': neLng,
+      'swLat': swLat,
+      'swLng': swLng,
+      'insetLeft': insetLeft,
+      'insetRight': insetRight,
+      'insetBottom': insetBottom,
+      'insetTop': insetTop,
+      'animated': animated
+    });
+  }
+
+  @override
   Future<CameraPosition?> updateMapOptions(
       Map<String, dynamic> optionsUpdate) async {
     final dynamic json = await _channel.invokeMethod(

@@ -74,6 +74,19 @@ abstract class MapboxGlPlatform {
     throw UnimplementedError('addSource() has not been implemented.');
   }
 
+  Future<void> fitBounds(
+      double neLat,
+      double neLng,
+      double swLat,
+      double swLng,
+      double insetTop,
+      double insetLeft,
+      double insetBottom,
+      double insetRight,
+      bool animated) async {
+    throw UnimplementedError('fitBounds() has not been implemented.');
+  }
+
   Future<CameraPosition?> updateMapOptions(
       Map<String, dynamic> optionsUpdate) async {
     throw UnimplementedError('updateMapOptions() has not been implemented.');
